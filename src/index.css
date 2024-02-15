@@ -3,3 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.input{
+  width: 45%;
+  border: 1px solid white;
+}
+.selectInput{
+  width: 94%;
+}
+.dateInput{
+  width:94%;
+}
+.fileInput{
+  width:94%;
+
+}

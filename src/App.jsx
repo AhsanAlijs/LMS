@@ -5,8 +5,8 @@ import AddmissionForm from "./screens/AddmissionPage/AddmissionForm";
 const App = () => {
   return (
     <>
-      {/* <Routerss /> */}
-      <AddmissionForm />
+      <Routerss />
+      {/* <AddmissionForm /> */}
     </>
   );
 };

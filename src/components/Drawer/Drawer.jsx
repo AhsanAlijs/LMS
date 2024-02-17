@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import QueueIcon from "@mui/icons-material/Queue";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -79,9 +80,28 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  function btnLocation(text){
+  function btnLocation(text) {
     console.log(text);
 
+
+  }
+
+
+  const navigate = useNavigate();
+
+  const goToSpecificRoute = (text) => {
+    if (text === 'Add Course') {
+      navigate('/admin');
+      return
+    }
+    if (text === 'All Students') {
+      navigate('/admin/allstudents');
+      return
+    }
+    if (text === 'All Course') {
+      navigate('/admin/allcourse');
+      return
+    }
   }
 
   return (
@@ -121,10 +141,10 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{borderBottom:'1px solid white'}} >
+        <DrawerHeader sx={{ borderBottom: '1px solid white' }} >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
-              <ChevronLeftIcon sx={{color:'white',fontSize:'20px',":hover":{backgroundColor:'white',color:'green',borderRadius:'50px'}}} />
+              <ChevronLeftIcon sx={{ color: 'white', fontSize: '20px', ":hover": { backgroundColor: 'white', color: 'green', borderRadius: '50px' } }} />
             ) : (
               <ChevronRightIcon />
             )}
@@ -133,9 +153,9 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
           {["Add Course", "All Students", "All Course"].map((text, index) => (
-            <ListItem onClick={()=>btnLocation(text)} key={text} disablePadding>
-              <ListItemButton sx={{color:'white',fontSize:'20px',borderBottom:'1px solid gray',":hover":{backgroundColor:'#F0F3FF', color:'#000'}}}>
-                <ListItemIcon sx={{color:'#15F5BA'}}>
+            <ListItem onClick={() => btnLocation(text)} key={text} disablePadding>
+              <ListItemButton sx={{ color: 'white', fontSize: '20px', borderBottom: '1px solid gray', ":hover": { backgroundColor: '#F0F3FF', color: '#000' } }}>
+                <ListItemIcon sx={{ color: '#15F5BA' }}>
                   {index % 3 === 0 ? (
                     <QueueIcon />
                   ) : index % 2 === 0 ? (
@@ -144,7 +164,7 @@ export default function PersistentDrawerLeft() {
                     <Diversity3Icon />
                   )}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text} onClick={() => goToSpecificRoute(text)} />
               </ListItemButton>
             </ListItem>
           ))}
@@ -153,7 +173,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>sasasasa</Typography>
+        
       </Main>
     </Box>
   );

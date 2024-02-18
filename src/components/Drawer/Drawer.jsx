@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import QueueIcon from "@mui/icons-material/Queue";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -68,7 +69,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ screen }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -152,17 +153,17 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Add Course", "All Students", "All Course"].map((text, index) => (
+          {["Add Course", "All Students", "All Course", "Single Course"].map((text, index) => (
             <ListItem onClick={() => btnLocation(text)} key={text} disablePadding>
               <ListItemButton sx={{ color: 'white', fontSize: '20px', borderBottom: '1px solid gray', ":hover": { backgroundColor: '#F0F3FF', color: '#000' } }}>
                 <ListItemIcon sx={{ color: '#15F5BA' }}>
-                  {index % 3 === 0 ? (
+                  {index % 4 === 0 ? (
                     <QueueIcon />
                   ) : index % 2 === 0 ? (
                     <LocalLibraryIcon />
-                  ) : (
-                    <Diversity3Icon />
-                  )}
+                  ) : index % 3 === 0 ? (
+                    <GolfCourseIcon />
+                  ) : <Diversity3Icon />}
                 </ListItemIcon>
                 <ListItemText primary={text} onClick={() => goToSpecificRoute(text)} />
               </ListItemButton>
@@ -173,7 +174,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        
+        {screen}
       </Main>
     </Box>
   );

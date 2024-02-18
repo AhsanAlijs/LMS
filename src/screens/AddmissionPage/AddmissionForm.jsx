@@ -70,7 +70,7 @@ const AddmissionForm = () => {
           </Typography>
         </div>
         <Box sx={{ marginTop: "70px", display: 'flex', justifyContent: 'center' }}>
-          <Typography sx={{ width: "70%", background: '#0000004a', borderRadius: '50px', padding: '20px' }}>
+          <Typography sx={{ width: "70%", background: 'white', borderRadius: '50px', padding: '20px', borderRight: '6px solid orange', borderTop: '3px solid orange', borderBottom: '3px solid orange', borderLeft: '6px solid orange' }}>
             <form onSubmit={getValueForm}>
 
               {/* Names Input Start */}
@@ -114,9 +114,9 @@ const AddmissionForm = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Web Development</MenuItem>
-                    <MenuItem value={20}>Graphics Designing</MenuItem>
-                    <MenuItem value={30}>Ai Chat Boat</MenuItem>
+                    <MenuItem value={'Web Development'}>Web Development</MenuItem>
+                    <MenuItem value={'Graphics Designing'}>Graphics Designing</MenuItem>
+                    <MenuItem value={'Graphics Designing'}>Ai Chat Boat</MenuItem>
                   </Select>
                 </FormControl>
               </Box>

@@ -103,6 +103,10 @@ export default function PersistentDrawerLeft({ screen }) {
       navigate('/admin/allcourse');
       return
     }
+    if (text === 'Single Course') {
+      navigate('/admin/singlecourse')
+      return
+    }
   }
 
   return (
@@ -111,7 +115,7 @@ export default function PersistentDrawerLeft({ screen }) {
       <AppBar
         position="fixed"
         open={open}
-        sx={{ backgroundColor: "#211951" }}
+        sx={{ backgroundColor: "white", color:'orange' }}
       >
         <Toolbar>
           <IconButton
@@ -119,12 +123,12 @@ export default function PersistentDrawerLeft({ screen }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+            sx={{ mr: 2, ...(open && { display: "none" }),color:'black' }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Al-Salam-Academy
+            DashBoard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -135,7 +139,7 @@ export default function PersistentDrawerLeft({ screen }) {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            backgroundColor: "#211951",
+            backgroundColor: "white",
           },
         }}
         variant="persistent"
@@ -145,7 +149,7 @@ export default function PersistentDrawerLeft({ screen }) {
         <DrawerHeader sx={{ borderBottom: '1px solid white' }} >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
-              <ChevronLeftIcon sx={{ color: 'white', fontSize: '20px', ":hover": { backgroundColor: 'white', color: 'green', borderRadius: '50px' } }} />
+              <ChevronLeftIcon sx={{ color: 'orange', fontSize: '20px', ":hover": { backgroundColor: 'orange', color: 'white', borderRadius: '50px' } }} />
             ) : (
               <ChevronRightIcon />
             )}
@@ -155,8 +159,8 @@ export default function PersistentDrawerLeft({ screen }) {
         <List>
           {["Add Course", "All Students", "All Course", "Single Course"].map((text, index) => (
             <ListItem onClick={() => btnLocation(text)} key={text} disablePadding>
-              <ListItemButton sx={{ color: 'white', fontSize: '20px', borderBottom: '1px solid gray', ":hover": { backgroundColor: '#F0F3FF', color: '#000' } }}>
-                <ListItemIcon sx={{ color: '#15F5BA' }}>
+              <ListItemButton sx={{ color: 'orange', fontSize: '40px', borderBottom: '1px solid gray', fontWeight:'700' , ":hover": { backgroundColor: 'orange', color: 'white' } }}>
+                <ListItemIcon sx={{ color: ''}}>
                   {index % 4 === 0 ? (
                     <QueueIcon />
                   ) : index % 2 === 0 ? (

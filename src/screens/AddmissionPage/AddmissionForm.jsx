@@ -34,6 +34,7 @@ const AddmissionForm = () => {
 
   const getValueForm = (event) => {
     event.preventDefault()
+    
     console.log(`First name ${firstName.current.value}`);
     console.log(`last name ${lastName.current.value}`);
     console.log(`Chose ${selectName.current.value}`);

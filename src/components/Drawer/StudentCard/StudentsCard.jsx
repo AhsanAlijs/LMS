@@ -8,7 +8,7 @@ const StudentsCard = () => {
     return (
         <>
 
-            <div className='d-flex justify-content-center p-3 gap-1'>
+            <div className='d-flex justify-content-center p-2 gap-1'>
                 <div className='d-flex justify-content-center flex-column'>
                     <Box sx={{
                         border: '2px solid orange',
@@ -74,9 +74,9 @@ const StudentsCard = () => {
                             <Typography color={'#fff'} fontSize={30} fontWeight={600} textAlign={'center'} variant='h5'>Course<span style={{ color: 'black' }} >Info & other </span></Typography>
                         </Box>
 
+                        
 
-
-                        <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: '10px', borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', marginTop: '155px', background: 'white' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column',  borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', marginTop: '155px', background: 'white' }}>
 
                             <div className='d-flex justify-content-center flex-column'>
                                 <Typography fontSize={15} fontWeight={500} variant='p'>Email:ahsanali45444@gmail.com <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>

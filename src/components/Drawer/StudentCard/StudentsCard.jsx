@@ -8,7 +8,7 @@ const StudentsCard = () => {
     return (
         <>
 
-            <div className='d-flex justify-content-center p-2 gap-1'>
+            <div className='d-flex justify-content-center p-3 gap-1'>
                 <div className='d-flex justify-content-center flex-column'>
                     <Box sx={{
                         border: '2px solid orange',

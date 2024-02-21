@@ -28,25 +28,31 @@ const AddmissionForm = () => {
   const selectName = useRef();
   const date = useRef();
   const email = useRef();
-  const file = useRef();
+  const file = useRef(null);
   const password = useRef();
   const confirmPassword = useRef();
 
+
+  // file get function 
+
+
+
+
   const getValueForm = (event) => {
     event.preventDefault()
-    
     console.log(`First name ${firstName.current.value}`);
     console.log(`last name ${lastName.current.value}`);
     console.log(`Chose ${selectName.current.value}`);
     console.log(`Date ${date.current.value}`);
     console.log(`Email ${email.current.value}`);
-    console.log(`file ${file.current.value}`);
+    console.log(file.current.files[0]);
     console.log(`password ${password.current.value}`);
     console.log(`Confirm password  ${confirmPassword.current.value}`);
-
-
   }
 
+  const handleFileChange = () => {
+    // console.log(file.current.files[0]);
+  };
 
 
 
@@ -155,6 +161,7 @@ const AddmissionForm = () => {
                   type="file"
                   className="btn fileInput"
                   inputRef={file}
+                  onChange={handleFileChange}
                 />
               </Box>
               {/* File Input End */}

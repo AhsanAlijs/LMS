@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from '../../config/firebase/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 function Copyright(props) {
     return (
@@ -29,16 +33,55 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
+
+
+
+
+
+
+
 const Login = () => {
 
+    let email;
+    let password;
+    const navigate = useNavigate();
+    const navigatePage = useNavigate();
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            console.log(uid);
+            navigatePage('/students')
+        } else {
+            console.log('user nahi ha');
+        }
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        email = data.get('email');
+        password = data.get('password');
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                navigate('/students')
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+
+
+
+
+        console.log(email);
+        console.log(password);
+
     };
 
 
@@ -72,7 +115,7 @@ const Login = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                
+
                             }}
                         >
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -114,18 +157,7 @@ const Login = () => {
                                 >
                                     Sign In
                                 </Button>
-                                <Grid container>
-                                    <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+
                                 <Copyright sx={{ mt: 5 }} />
                             </Box>
                         </Box>

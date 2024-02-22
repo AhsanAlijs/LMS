@@ -4,7 +4,7 @@ import ModeIcon from '@mui/icons-material/Mode';
 import Logo from '../../forWeb/front.png'
 import Logos from '../../forWeb/card.png'
 
-const StudentsCard = () => {
+const StudentsCard = ({ course, dob, email, image, names }) => {
     return (
         <>
 
@@ -32,7 +32,7 @@ const StudentsCard = () => {
                                     sx={{ width: '110px', border: '3px solid orange', borderRadius: '8px' }}
                                     height='110'
                                     component="img"
-                                    image="https://img.freepik.com/free-photo/majestic-mountain-peak-tranquil-winter-landscape-generated-by-ai_188544-15662.jpg"
+                                    image={image}
                                 />
                             </Box>
                         </div>
@@ -40,8 +40,8 @@ const StudentsCard = () => {
                         <Box className='mt-5' sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: '10px', borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', background: 'white' }}>
 
                             <div>
-                                <Typography fontSize={25} fontWeight={500} variant='p'>Name : Ahsan Ali <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
-                                <Typography fontSize={25} fontWeight={500} variant='p'>Dob : 01-10-2003 <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
+                                <Typography fontSize={25} fontWeight={500} variant='p'>{names} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
+                                <Typography fontSize={25} fontWeight={500} variant='p'>{dob}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
                             </div>
                         </Box>
 
@@ -79,8 +79,8 @@ const StudentsCard = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', marginTop: '155px', background: 'white' }}>
 
                             <div className='d-flex justify-content-center flex-column'>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>Email:ahsanali45444@gmail.com <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>Course : Web and Mobile...<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                                <Typography fontSize={15} fontWeight={500} variant='p'>{email} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                                <Typography fontSize={15} fontWeight={500} variant='p'>{course}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
                                 <Typography fontSize={15} fontWeight={500} variant='p'>Batch : 4<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
                                 <Typography fontSize={15} fontWeight={500} variant='p'>Days :MWF<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
                             </div>

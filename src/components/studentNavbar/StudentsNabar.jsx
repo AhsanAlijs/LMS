@@ -10,11 +10,17 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { signOut } from "firebase/auth";
+import { auth } from '../../config/firebase/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+
+
+
 const settings = ['Logout'];
 
-function ResponsiveAppBar() {
+
+function ResponsiveAppBar({ image }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -29,9 +35,16 @@ function ResponsiveAppBar() {
         setAnchorElNav(null);
     };
 
+    const navigate = useNavigate();
+
     const handleCloseUserMenu = (setting) => {
         setAnchorElUser(null);
-        console.log(`Called==>${setting}`);
+        signOut(auth).then(() => {
+            navigate('/login')
+            console.log('log out');
+        }).catch((error) => {
+            console.log(error);
+        });
     };
 
     return (
@@ -94,7 +107,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/majestic-mountain-peak-tranquil-winter-landscape-generated-by-ai_188544-15662.jpg" />
+                                <Avatar alt="Remy Sharp" src={image} />
                             </IconButton>
                         </Tooltip>
                         <Menu

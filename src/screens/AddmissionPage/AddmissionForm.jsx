@@ -14,10 +14,17 @@ import { styled } from "@mui/material/styles";
 import React, { useRef, useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../config/firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../config/firebase/firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 const AddmissionForm = () => {
   const [age, setAge] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -38,27 +45,77 @@ const AddmissionForm = () => {
 
 
 
-  const getValueForm = (event) => {
+  const getValueForm = async (event) => {
     event.preventDefault()
-    console.log(`First name ${firstName.current.value}`);
-    console.log(`last name ${lastName.current.value}`);
-    console.log(`Chose ${selectName.current.value}`);
-    console.log(`Date ${date.current.value}`);
-    console.log(`Email ${email.current.value}`);
-    console.log(file.current.files[0]);
-    console.log(`password ${password.current.value}`);
-    console.log(`Confirm password  ${confirmPassword.current.value}`);
+
+    const fullName = `${firstName.current.value} ${lastName.current.value}`
+
+    if (confirmPassword.current.value !== password.current.value) {
+      alert('Password are not Same')
+      return
+    }
+    const files = file.current.files[0];
+    const userEmail = email.current.value;
+    const fileName = `file-${Date.now()}`;
+    const storageRef = ref(storage, `${fileName}/${userEmail}`);
+    console.log(files);
+    try {
+      await uploadBytes(storageRef, files);
+      const url = await getDownloadURL(storageRef);
+      console.log(url);
+
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then(async (userCredential) => {
+          // Signed up 
+          const user = userCredential.user;
+          console.log(user);
+          navigate('/students')
+
+
+          try {
+            const docRef = await addDoc(collection(db, "students"), {
+              names: fullName,
+              course: selectName.current.value,
+              dob: date.current.value,
+              email: userEmail,
+              uid: user.uid,
+              image: url,
+            });
+
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+        });
+
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      // Handle error here
+    }
+
+
+
+
+
+
+    // console.log(`First name ${firstName.current.value}`);
+    // console.log(`last name ${lastName.current.value}`);
+    // console.log(`Chose ${selectName.current.value}`);
+    // console.log(`Date ${date.current.value}`);
+    // console.log(`Email ${email.current.value}`);
+    // console.log(file.current.files[0]);
+    // console.log(`password ${password.current.value}`);
+    // console.log(`Confirm password  ${confirmPassword.current.value}`);
   }
 
   const handleFileChange = () => {
     // console.log(file.current.files[0]);
   };
-
-
-
-
-
-
 
   return (
     <>
@@ -71,11 +128,11 @@ const AddmissionForm = () => {
           height: "100vh",
         }}
       >
-        <div style={{ textAlign: "center", paddingTop: "40px" }}>
+        <Box style={{ textAlign: "center", paddingTop: "40px" }}>
           <Typography variant="h3" component="h3">
             Admission Form Of <span style={{ color: "#251855" }}>(LMS)</span>
           </Typography>
-        </div>
+        </Box>
         <Box sx={{ marginTop: "70px", display: 'flex', justifyContent: 'center' }}>
           <Typography sx={{ width: "70%", background: 'white', borderRadius: '50px', padding: '20px', borderRight: '6px solid orange', borderTop: '3px solid orange', borderBottom: '3px solid orange', borderLeft: '6px solid orange' }}>
             <form onSubmit={getValueForm}>
@@ -189,7 +246,7 @@ const AddmissionForm = () => {
                   id="outlined-basic"
                   label="Confirm Password"
                   variant="outlined"
-                  type="passwordl"
+                  type="password"
                   className="selectInput"
                   inputRef={confirmPassword}
                 />

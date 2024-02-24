@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../config/firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import { addImageToStorage, signUpUser } from "../../config/firebase/firebasemethods/firebaseMethods";
 
 const AddmissionForm = () => {
   const [age, setAge] = useState("");
@@ -49,55 +50,89 @@ const AddmissionForm = () => {
     event.preventDefault()
 
     const fullName = `${firstName.current.value} ${lastName.current.value}`
-
     if (confirmPassword.current.value !== password.current.value) {
       alert('Password are not Same')
       return
     }
     const files = file.current.files[0];
-    const userEmail = email.current.value;
     const fileName = `file-${Date.now()}`;
-    const storageRef = ref(storage, `${fileName}/${userEmail}`);
     console.log(files);
-    try {
-      await uploadBytes(storageRef, files);
-      const url = await getDownloadURL(storageRef);
+
+
+    addImageToStorage(
+      files, `${fileName}/${email.current.value}`
+    ).then((url) => {
       console.log(url);
+    }).catch((error) => {
+      console.log(error);
+    })
 
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value,"student")
-        .then(async (userCredential) => {
-          // Signed up 
-          const user = userCredential.user;
-          console.log(user);
-          navigate('/students')
+    signUpUser({
+      email: email.current.value,
+      password: password.current.value,
+      type: 'student'
+    }).then((res) => {
+      navigate('/login')
+      console.log(res)
+    }).catch((error) => {
+      console.log(error)
+    });
 
 
-          try {
-            const docRef = await addDoc(collection(db, "students"), {
-              names: fullName,
-              course: selectName.current.value,
-              dob: date.current.value,
-              email: userEmail,
-              uid: user.uid,
-              image: url,
-              type: "students",
-            });
 
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
-        });
 
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      // Handle error here
-    }
+
+
+
+
+
+
+
+
+
+
+    // const userEmail = email.current.value;
+    // const fileName = `file-${Date.now()}`;
+    // const storageRef = ref(storage, `${fileName}/${userEmail}`);
+    // try {
+    //   await uploadBytes(storageRef, files);
+    //   const url = await getDownloadURL(storageRef);
+    //   console.log(url);
+
+    //   createUserWithEmailAndPassword(auth, email.current.value, password.current.value,"student")
+    //     .then(async (userCredential) => {
+    //       // Signed up 
+    //       const user = userCredential.user;
+    //       console.log(user);
+    //       navigate('/students')
+
+
+    //       try {
+    //         const docRef = await addDoc(collection(db, "students"), {
+    //           names: fullName,
+    //           course: selectName.current.value,
+    //           dob: date.current.value,
+    //           email: userEmail,
+    //           uid: user.uid,
+    //           image: url,
+    //           type: "students",
+    //         });
+
+    //         console.log("Document written with ID: ", docRef.id);
+    //       } catch (e) {
+    //         console.error("Error adding document: ", e);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       const errorMessage = error.message;
+    //       console.log(errorMessage);
+    //     });
+
+    // } catch (error) {
+    //   console.error('Error uploading file:', error);
+    //   // Handle error here
+    // }
 
 
 
@@ -117,6 +152,13 @@ const AddmissionForm = () => {
   const handleFileChange = () => {
     // console.log(file.current.files[0]);
   };
+
+
+  const havAcc = () => {
+    navigate('/login')
+  }
+
+
 
   return (
     <>
@@ -263,6 +305,7 @@ const AddmissionForm = () => {
               {/* Register Button End  */}
 
             </form>
+            <Box color={'blue'} textAlign={'center'} marginTop={1} sx={{ cursor: 'pointer' }}   ><p onClick={havAcc}>Already Have Account.</p></Box>
           </Typography>
         </Box>
       </Box>

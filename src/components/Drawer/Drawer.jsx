@@ -21,6 +21,8 @@ import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import { signOutUser } from "../../config/firebase/firebasemethods/firebaseMethods";
 
 const drawerWidth = 240;
 
@@ -109,27 +111,38 @@ export default function PersistentDrawerLeft({ screen }) {
     }
   }
 
+
+
+  const logOut = () => {
+    signOutUser().then((res) => {
+      navigate('/login')
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         open={open}
-        sx={{ backgroundColor: "white", color:'orange' }}
+        sx={{ backgroundColor: "white", color: 'orange' }}
       >
-        <Toolbar>
+        <Toolbar className="d-felx justify-content-between">
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }),color:'black' }}
+            sx={{ mr: 2, ...(open && { display: "none" }), color: 'black' }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             DashBoard
           </Typography>
+          <Button onClick={logOut}>Log Out</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -159,8 +172,8 @@ export default function PersistentDrawerLeft({ screen }) {
         <List>
           {["Add Course", "All Students", "All Course", "Single Course"].map((text, index) => (
             <ListItem onClick={() => btnLocation(text)} key={text} disablePadding>
-              <ListItemButton sx={{ color: 'orange', fontSize: '40px', borderBottom: '1px solid gray', fontWeight:'700' , ":hover": { backgroundColor: 'orange', color: 'white' } }}>
-                <ListItemIcon sx={{ color: ''}}>
+              <ListItemButton sx={{ color: 'orange', fontSize: '40px', borderBottom: '1px solid gray', fontWeight: '700', ":hover": { backgroundColor: 'orange', color: 'white' } }}>
+                <ListItemIcon sx={{ color: '' }}>
                   {index % 4 === 0 ? (
                     <QueueIcon />
                   ) : index % 2 === 0 ? (

@@ -4,7 +4,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
   } from "firebase/auth";
-  import app from "./firebaseconfig.js";
+
   import {
     getFirestore,
     collection,
@@ -15,7 +15,10 @@ import {
     deleteDoc,
     doc,
     updateDoc,
+    
   } from "firebase/firestore";
+import { app, storage } from "../firebaseConfig";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
   
   const auth = getAuth(app);
   

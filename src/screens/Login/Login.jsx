@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../config/firebase/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../config/firebase/firebasemethods/firebaseMethods';
 
 
 function Copyright(props) {
@@ -47,15 +48,15 @@ const Login = () => {
     const navigate = useNavigate();
     const navigatePage = useNavigate();
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-            console.log(auth.currentUser);
-            navigatePage('/students')
-        } else {
-            console.log('user nahi ha');
-        }
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //         const uid = user.uid;
+    //         console.log(auth.currentUser);
+    //         navigatePage('/students')
+    //     } else {
+    //         console.log('user nahi ha');
+    //     }
+    // });
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,18 +64,22 @@ const Login = () => {
         email = data.get('email');
         password = data.get('password');
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
+        loginUser({
+            email: email,
+            password: password
+        }).then((res) => {
+            console.log(res.type)
+
+            if (res.type === 'student') {
                 navigate('/students')
-                console.log(user);
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+            } else {
+                navigate('/admin')
+            }
+
+
+        }).catch((error) => {
+            console.log(error);
+        })
 
 
 
@@ -83,6 +88,10 @@ const Login = () => {
         console.log(password);
 
     };
+
+    const back = () =>{
+        navigate('/')
+    }
 
 
 
@@ -157,6 +166,8 @@ const Login = () => {
                                 >
                                     Sign In
                                 </Button>
+
+                                <Typography  color={'blue'} sx={{cursor:'pointer'}} variant='h6'><p onClick={back}> Dont Have'nt Account?</p></Typography>
 
                                 <Copyright sx={{ mt: 5 }} />
                             </Box>

@@ -64,7 +64,7 @@ const AddmissionForm = () => {
       const url = await getDownloadURL(storageRef);
       console.log(url);
 
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value,"student")
         .then(async (userCredential) => {
           // Signed up 
           const user = userCredential.user;
@@ -80,6 +80,7 @@ const AddmissionForm = () => {
               email: userEmail,
               uid: user.uid,
               image: url,
+              type: "students",
             });
 
             console.log("Document written with ID: ", docRef.id);

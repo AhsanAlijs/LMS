@@ -10,8 +10,6 @@ import { onAuthStateChanged } from "firebase/auth";
 
 
 
-
-
 const StudentDeshBoard = () => {
     const [students, setStudents] = useState([]);
     useEffect(() => {
@@ -35,30 +33,30 @@ const StudentDeshBoard = () => {
 
             });
 
-
-
-
-
-
-
-
-
         };
         getData();
+
     }, []);
+
+
+
+
+
 
     return (
         <>
 
             {students.length > 0 ? students.map((item, index) => (
-
                 < div key={index} className='' >
                     <ResponsiveAppBar image={item.image} />
                     <StudentsCard course={item.course} names={item.names} image={item.image} email={item.email} dob={item.dob} />
                 </div >
+
             )) : <Box>
                 <Loader />
             </Box>}
+
+
         </>
     )
 }

@@ -50,7 +50,7 @@ const Login = () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            console.log(uid);
+            console.log(auth.currentUser);
             navigatePage('/students')
         } else {
             console.log('user nahi ha');

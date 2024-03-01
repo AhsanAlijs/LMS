@@ -210,9 +210,12 @@ const AddmissionForm = () => {
                     </MenuItem>
 
                     {teacher.map((item) => (
-                      <MenuItem key={item.teacher} value={item.teacher}>
-                        {item.teacher}
+
+
+                      <MenuItem key={item.course} value={item.course}>
+                        {item.course}
                       </MenuItem>
+
                     ))}
                     {/* <MenuItem value={'Web Development'}>Web Development</MenuItem>
   <MenuItem value={'Graphics Designing'}>Graphics Designing</MenuItem>

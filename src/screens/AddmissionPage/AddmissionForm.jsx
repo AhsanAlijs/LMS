@@ -20,16 +20,45 @@ import { useNavigate } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../config/firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import { addImageToStorage, signUpUser } from "../../config/firebase/firebasemethods/firebaseMethods";
+import { addImageToStorage, getAllData, sendData, signUpUser } from "../../config/firebase/firebasemethods/firebaseMethods";
+
+
+
+
+
+
+
+
 
 const AddmissionForm = () => {
   const [age, setAge] = useState("");
-
   const navigate = useNavigate();
-
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const [teacher, setTeacher] = useState([])
+
+  useState(() => {
+    getAllData('course').then((res) => {
+      // console.log(res);
+      setTeacher(res)
+    }).catch((error) => {
+      console.log(error);
+    })
+  }, [])
+  // console.log(teacher);
+
+
+  // const getDataFromFirestore = () => {
+
+  // }
+  // getDataFromFirestore()
+
+
+
+
+
 
   const firstName = useRef();
   const lastName = useRef();
@@ -39,7 +68,6 @@ const AddmissionForm = () => {
   const file = useRef(null);
   const password = useRef();
   const confirmPassword = useRef();
-
 
   // file get function 
 
@@ -55,98 +83,57 @@ const AddmissionForm = () => {
       return
     }
     const files = file.current.files[0];
-    const fileName = `file-${Date.now()}`;
+    // const fileName = `file-${Date.now()}`;
     console.log(files);
 
-
-    addImageToStorage(
-      files, `${fileName}/${email.current.value}`
-    ).then((url) => {
+    const userEmail = email.current.value;
+    const fileName = `file-${Date.now()}`;
+    const storageRef = ref(storage, `${fileName}/${userEmail}`);
+    try {
+      await uploadBytes(storageRef, files);
+      const url = await getDownloadURL(storageRef);
       console.log(url);
-    }).catch((error) => {
-      console.log(error);
-    })
+      signUpUser({
+        email: email.current.value,
+        password: password.current.value,
+        type: "student"
+      }).then((res) => {
+        console.log(res);
+        navigate('/login')
+        sendData({
+          names: fullName,
+          course: selectName.current.value,
+          dob: date.current.value,
+          email: userEmail,
+          uid: res,
+          image: url,
 
-    signUpUser({
-      email: email.current.value,
-      password: password.current.value,
-      type: 'student'
-    }).then((res) => {
-      navigate('/login')
-      console.log(res)
-    }).catch((error) => {
-      console.log(error)
-    });
+        }, "students")
 
+        console.log(res);
+      }).catch((error) => {
+        console.log(error);
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // const userEmail = email.current.value;
-    // const fileName = `file-${Date.now()}`;
-    // const storageRef = ref(storage, `${fileName}/${userEmail}`);
+      })
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      // Handle error here
+    }
     // try {
-    //   await uploadBytes(storageRef, files);
-    //   const url = await getDownloadURL(storageRef);
-    //   console.log(url);
+    //   const docRef = await addDoc(collection(db, "students"), {
+    //     names: fullName,
+    //     course: selectName.current.value,
+    //     dob: date.current.value,
+    //     email: userEmail,
+    //     uid: user.uid,
+    //     image: url,
+    //     type: "students",
+    //   });
 
-    //   createUserWithEmailAndPassword(auth, email.current.value, password.current.value,"student")
-    //     .then(async (userCredential) => {
-    //       // Signed up 
-    //       const user = userCredential.user;
-    //       console.log(user);
-    //       navigate('/students')
-
-
-    //       try {
-    //         const docRef = await addDoc(collection(db, "students"), {
-    //           names: fullName,
-    //           course: selectName.current.value,
-    //           dob: date.current.value,
-    //           email: userEmail,
-    //           uid: user.uid,
-    //           image: url,
-    //           type: "students",
-    //         });
-
-    //         console.log("Document written with ID: ", docRef.id);
-    //       } catch (e) {
-    //         console.error("Error adding document: ", e);
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       const errorCode = error.code;
-    //       const errorMessage = error.message;
-    //       console.log(errorMessage);
-    //     });
-
-    // } catch (error) {
-    //   console.error('Error uploading file:', error);
-    //   // Handle error here
+    //   console.log("Document written with ID: ", docRef.id);
+    // } catch (e) {
+    //   console.error("Error adding document: ", e);
     // }
-
-
-
-
-
-
-    // console.log(`First name ${firstName.current.value}`);
-    // console.log(`last name ${lastName.current.value}`);
-    // console.log(`Chose ${selectName.current.value}`);
-    // console.log(`Date ${date.current.value}`);
-    // console.log(`Email ${email.current.value}`);
-    // console.log(file.current.files[0]);
-    // console.log(`password ${password.current.value}`);
-    // console.log(`Confirm password  ${confirmPassword.current.value}`);
   }
 
   const handleFileChange = () => {
@@ -221,9 +208,15 @@ const AddmissionForm = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={'Web Development'}>Web Development</MenuItem>
-                    <MenuItem value={'Graphics Designing'}>Graphics Designing</MenuItem>
-                    <MenuItem value={'Graphics Designing'}>Ai Chat Boat</MenuItem>
+
+                    {teacher.map((item) => (
+                      <MenuItem key={item.teacher} value={item.teacher}>
+                        {item.teacher}
+                      </MenuItem>
+                    ))}
+                    {/* <MenuItem value={'Web Development'}>Web Development</MenuItem>
+  <MenuItem value={'Graphics Designing'}>Graphics Designing</MenuItem>
+  <MenuItem value={'Graphics Designing'}>Ai Chat Boat</MenuItem> */}
                   </Select>
                 </FormControl>
               </Box>

@@ -67,7 +67,7 @@ const Login = () => {
         loginUser({
             email: email,
             password: password
-        }).then((res) => {
+        }).then ((res) => {
             console.log(res.type)
 
             if (res.type === 'student') {

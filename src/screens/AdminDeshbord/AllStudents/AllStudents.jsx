@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardMedia, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Modal from '@mui/material/Modal';
 import StudentsCard from '../../../components/StudentCard/StudentsCard';
@@ -24,6 +24,14 @@ const AllStudents = () => {
         console.log('hello')
     }
 
+    useEffect(() => {
+
+    }, [])
+
+    const getStudentFromFireStore = () => {
+
+    }
+
 
 
     return (
@@ -39,7 +47,7 @@ const AllStudents = () => {
                         <Card onClick={handleOpen} className='mt-5' sx={{ border: '1px solid Orange', borderRadius: '20px' }} >
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'px', marginTop: '6px', paddingLeft: '10px', paddingRight: '10px', cursor: 'pointer' }}>
                                 <CardMedia
-                                    sx={{ width: '80px', border: '3px solid orange', borderRadius: '50px', marginBottom:'6px' }}
+                                    sx={{ width: '80px', border: '3px solid orange', borderRadius: '50px', marginBottom: '6px' }}
                                     height='80'
                                     component="img"
                                     image="https://img.freepik.com/free-photo/majestic-mountain-peak-tranquil-winter-landscape-generated-by-ai_188544-15662.jpg"
@@ -83,7 +91,7 @@ const AllStudents = () => {
                         <Card onClick={handleOpen} className='mt-5' sx={{ border: '1px solid Orange', borderRadius: '20px' }} >
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'px', marginTop: '6px', paddingLeft: '10px', paddingRight: '10px', cursor: 'pointer' }}>
                                 <CardMedia
-                                    sx={{ width: '80px', border: '3px solid orange', borderRadius: '50px', marginBottom:'6px' }}
+                                    sx={{ width: '80px', border: '3px solid orange', borderRadius: '50px', marginBottom: '6px' }}
                                     height='80'
                                     component="img"
                                     image="https://img.freepik.com/free-photo/majestic-mountain-peak-tranquil-winter-landscape-generated-by-ai_188544-15662.jpg"

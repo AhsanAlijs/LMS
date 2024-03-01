@@ -1,6 +1,7 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
+import { sendData } from '../../../config/firebase/firebasemethods/firebaseMethods';
 
 
 const AddCourse = () => {
@@ -19,10 +20,19 @@ const AddCourse = () => {
 
 
   const getForm = (e) => {
-    e.preventDefault()
-    console.log(teacherName.current.value);
-    console.log(days.current.value);
-    console.log(courses.current.value);
+    e.preventDefault();
+    sendData({
+      teacher: teacherName.current.value,
+      day: days.current.value,
+      course: courses.current.value
+    }, 'course').then((res) => {
+      console.log(res);
+      teacherName.current.value = ''
+      days.current.value = ''
+      courses.current.value = ''
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
 

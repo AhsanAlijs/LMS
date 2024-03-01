@@ -8,8 +8,8 @@ const StudentsCard = ({ course, dob, email, image, names }) => {
     return (
         <>
 
-            <div className='d-flex justify-content-center p-2 gap-1'>
-                <div className='d-flex justify-content-center flex-column'>
+            <Box className='d-flex justify-content-center p-2 gap-1'>
+                <Box className='d-flex justify-content-center flex-column'>
                     <Box sx={{
                         border: '2px solid orange',
                         width: '300px',
@@ -23,7 +23,7 @@ const StudentsCard = ({ course, dob, email, image, names }) => {
                         objectFit: 'contain'
                     }}
                     >
-                        <div className='d-flex align-items-center justify-content-center flex-column'>
+                        <Box className='d-flex align-items-center justify-content-center flex-column'>
                             <Box className='mt-3 color-white'>
                                 <Typography className='' variant='h5'>Proile Info</Typography>
                             </Box>
@@ -35,18 +35,18 @@ const StudentsCard = ({ course, dob, email, image, names }) => {
                                     image={image}
                                 />
                             </Box>
-                        </div>
+                        </Box>
 
                         <Box className='mt-5' sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: '10px', borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', background: 'white' }}>
 
-                            <div>
-                                <Typography fontSize={25} fontWeight={500} variant='p'>{names} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
-                                <Typography fontSize={25} fontWeight={500} variant='p'>{dob}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
-                            </div>
+                            <Box>
+                                <Typography fontSize={25} fontWeight={500} >{names} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
+                                <Typography fontSize={25} fontWeight={500} >{dob}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /> </Typography>
+                            </Box>
                         </Box>
 
                         <Box className='d-flex align-items-center justify-content-center mt-4' sx={{ background: 'orange' }} >
-                            <Typography fontSize={10} variant='p'>
+                            <Typography fontSize={10} >
                                 https://github.com/ahsanalijs
                             </Typography>
                         </Box>
@@ -78,12 +78,12 @@ const StudentsCard = ({ course, dob, email, image, names }) => {
 
                         <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderLeft: '4px solid orange', paddingLeft: '5px', borderRadius: '10px', borderTop: '1px solid orange', borderRight: '1px solid orange', borderBottom: '1px solid orange', marginTop: '155px', background: 'white' }}>
 
-                            <div className='d-flex justify-content-center flex-column'>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>{email} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>{course}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>Batch : 4<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
-                                <Typography fontSize={15} fontWeight={500} variant='p'>Days :MWF<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
-                            </div>
+                            <Box className='d-flex justify-content-center flex-column'>
+                                <Typography fontSize={15} fontWeight={500} >{email} <ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                                <Typography fontSize={15} fontWeight={500} >{course}<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                                <Typography fontSize={15} fontWeight={500} >Batch : 4<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                                <Typography fontSize={15} fontWeight={500} >Days :MWF<ModeIcon sx={{ color: 'orange', padding: '2px', ":hover": { background: 'orange', borderRadius: '20px', color: 'white', cursor: 'pointer' } }} /></Typography>
+                            </Box>
                         </Box>
 
 
@@ -101,8 +101,8 @@ const StudentsCard = ({ course, dob, email, image, names }) => {
 
 
 
-                </div>
-            </div >
+                </Box>
+            </Box >
 
         </>
     )

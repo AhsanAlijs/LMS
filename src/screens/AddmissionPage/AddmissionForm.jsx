@@ -107,7 +107,6 @@ const AddmissionForm = () => {
           email: userEmail,
           uid: res,
           image: url,
-
         }, "students")
 
         console.log(res);

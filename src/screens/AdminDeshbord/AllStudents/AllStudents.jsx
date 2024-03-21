@@ -26,16 +26,12 @@ const AllStudents = () => {
 
 
 
-    const del = async (uid) => {
-        try {
-            console.log('Hello World', uid);
-            const res = await deleteDocument('students', uid);
-            console.log(res);
-        } catch (error) {
-            console.error(error);
-        }
+
+    const del = (uid) => {
+        // console.log(uid);
+        console.log(user);
     };
-    
+
 
 
 

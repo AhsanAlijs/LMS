@@ -29,10 +29,13 @@ function ResponsiveAppBar({ image }) {
     };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
+
+
     };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+
     };
 
     const navigate = useNavigate();
@@ -45,6 +48,8 @@ function ResponsiveAppBar({ image }) {
         }).catch((error) => {
             console.log(error);
         });
+
+        console.log('login');
     };
 
     return (
